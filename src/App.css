@@ -84,6 +84,11 @@
   padding: 0px 30px;
 }
 
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+}
+
 .pagination-section{
 
   display: flex;
