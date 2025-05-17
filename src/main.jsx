@@ -9,12 +9,5 @@ import { WatchList } from './Pages/WatchList'
 import { Header } from './component/Header'
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route path="/" element={<MoviesList />} />
-      <Route path="/movie" element={<MovieDetails />} />
-      <Route path="/watchlist" element={<WatchList />} />
-    </Routes>
-  </BrowserRouter>
+  <App />
 )

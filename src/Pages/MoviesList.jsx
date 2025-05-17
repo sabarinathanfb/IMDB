@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { MovieList } from '../component/MovieList'
 import { Pagination } from '../component/Pagination'
 
-export const MoviesList = () => {
+export const MoviesList = ({watchlist, setWatchlist}) => {
 
     const [movies,setMovies] = useState([])
     const [totalPages,setTotalPages] = useState(0)
@@ -29,7 +29,7 @@ export const MoviesList = () => {
     return(
         <div className='movies-list-page'>
             <h1>Movie List</h1>
-            <MovieList movies={movies}/>
+            <MovieList movies={movies} watchlist={watchlist} setWatchlist={setWatchlist}/>
             <div className='pagination-section'>
                 <Pagination onPageChange={fetchMovies} totalPages={totalPages}/>
             </div>
