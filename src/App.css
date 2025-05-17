@@ -101,3 +101,49 @@
 .pagination button.active {
   background-color: blueviolet;
 }
+
+.watchlist {
+  display: flex;
+  gap: 1em;
+  padding: 10px 50px;
+}
+
+.watchlist .left-section{
+  width: 20%;
+  display: flex;
+}
+
+.watchlist .right-section{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.watchlist .right-section input {
+  height: 30px;
+  margin: 5px 0;
+  padding: 0 10px;
+}
+
+.watchlist .right-section table{
+  width: 100%;
+}
+
+.genre-list {
+  display: flex;
+  flex: 1;
+  gap: 1em;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.genre {
+  display: flex;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: aqua;
+  color: black;
+}
