@@ -1,4 +1,5 @@
-import { useEffect,useState } from "react"
+import { useContext, useEffect,useState } from "react"
+import { WatchListContext } from "../context/WatchListContext";
 
 let genreids = {
     28: "Action",
@@ -22,8 +23,11 @@ let genreids = {
     37: "Western",
 };
 
-export const WatchList = ({watchlist}) => {
+export const WatchList = () => {
 
+    const WatchListContextData = useContext(WatchListContext)
+    const {watchlist} = WatchListContextData;
+    
     const [list, setList] = useState([])
 
 

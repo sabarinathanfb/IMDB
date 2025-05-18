@@ -1,10 +1,11 @@
 import { Movie } from "./Movie"
-export const MovieList = ({ movies ,watchlist, setWatchlist}) => {
+
+export const MovieList = ({ movies }) => {
 
     return(
         <div className="movie-list">
             {movies.map((movie) => (
-                <Movie movie={movie} watchlist={watchlist} setWatchlist={setWatchlist}/>
+                <Movie movie={movie} />
             ))}
         </div>
     )
