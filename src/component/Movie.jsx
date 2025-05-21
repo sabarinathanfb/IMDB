@@ -1,14 +1,21 @@
 import { useContext } from "react";
 import {WatchListContext} from "../context/WatchListContext"
+import { useSelector, useDispatch } from "react-redux";
+import { addToWatchlist, removeFromWatchlist } from "../store/WatchListStore";
 
 export const Movie = ({movie}) => {
 
-    const WatchListContextData = useContext(WatchListContext)
-    const {watchlist, setWatchlist} = WatchListContextData;
+    const watchlist = useSelector((state) => state.watchList)
+    const dispatch = useDispatch()
 
-    const addToWatchlist = () => {
+    const handleWatchListBtnClick = () => {
 
-        setWatchlist({...watchlist, [movie.id]: movie })
+        if(!watchlist[movie.id]){
+            dispatch(addToWatchlist({ ...movie}))
+        }else{
+            dispatch(removeFromWatchlist({ ...movie}))
+        }
+        
 
     }
 
@@ -17,7 +24,7 @@ export const Movie = ({movie}) => {
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
             <div className="movie-info">
                 <h3>{movie.Title}</h3>
-                <button onClick={addToWatchlist}> {watchlist[movie.id] ? "-" : "+"} WatchList</button>
+                <button onClick={handleWatchListBtnClick}> {watchlist[movie.id] ? "-" : "+"} WatchList</button>
             </div>
 
         </div>

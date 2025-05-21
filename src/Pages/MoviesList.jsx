@@ -1,37 +1,34 @@
 import { useEffect, useState } from 'react'
 import { MovieList } from '../component/MovieList'
 import { Pagination } from '../component/Pagination'
+import { useDispatch, useSelector } from 'react-redux'
+import { setActivePage, setMovies,setTotalPages, fetchMovies } from '../store/MovieStore'
+
 
 export const MoviesList = () => {
 
-    const [movies,setMovies] = useState([])
-    const [totalPages,setTotalPages] = useState(0)
+    const totalPages = useSelector((state) => state.movieList.totalPages)
+    const dispatch = useDispatch()
 
-    const fetchMovies = (pageNo) =>{
-        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=3aec63790d50f3b9fc2efb4c15a8cf99&language=en-US&page=${pageNo}`).then((response) => {
-            if(!response.ok){
-                throw new Error("Network response was not ok")
-            }
-            return response.json()
-        }).then((data) => {
-            setMovies(data.results)
-            setTotalPages(data.total_pages)
-        }).catch((error) => {
-            console.error("There was a problem with the fetch operation:", error);
-        });
-    
-    } 
+
+
+
+
+    const handlePageChange = (pageNo) => {
+        dispatch(fetchMovies(pageNo))
+        
+    }
 
     useEffect(() => {
-        fetchMovies(1)
+        dispatch(fetchMovies(1))
     },[])
 
     return(
         <div className='movies-list-page'>
             <h1>Movie List</h1>
-            <MovieList movies={movies} />
+            <MovieList />
             <div className='pagination-section'>
-                <Pagination onPageChange={fetchMovies} totalPages={totalPages}/>
+                <Pagination onPageChange={handlePageChange} totalPages={totalPages}/>
             </div>
         </div>
     )

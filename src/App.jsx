@@ -13,7 +13,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <WatchListProvider>
+      {/* <WatchListProvider> */}
         <Header />
         <Routes>
           <Route path="/" element={<MoviesList  />} />
@@ -21,7 +21,7 @@ function App() {
           <Route path="/watchlist" element={<WatchList />} />
         </Routes>
 
-      </WatchListProvider>
+      {/* </WatchListProvider> */}
       
     </BrowserRouter>
   )

@@ -1,5 +1,7 @@
 import { useContext, useEffect,useState } from "react"
 import { WatchListContext } from "../context/WatchListContext";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromWatchlist } from "../store/WatchListStore";
 
 let genreids = {
     28: "Action",
@@ -25,15 +27,20 @@ let genreids = {
 
 export const WatchList = () => {
 
-    const WatchListContextData = useContext(WatchListContext)
-    const {watchlist} = WatchListContextData;
+    // const WatchListContextData = useContext(WatchListContext)
+    // const {watchlist} = WatchListContextData;
+
+    
+    const watchList = useSelector((state) => state.watchList)
+    const dispatch = useDispatch()
     
     const [list, setList] = useState([])
 
 
+
     const handleSearch = (e) => {
         const search = e.target.value.toLowerCase()
-        const filteredList = Object.values(watchlist).filter(movie => movie.title.toLowerCase().includes(search))
+        const filteredList = Object.values(watchList).filter(movie => movie.title.toLowerCase().includes(search))
         setList(filteredList)
     }
 
@@ -50,22 +57,26 @@ export const WatchList = () => {
 
     const selectedGenres = () => {
         let genreList = [];
-        Object.values(watchlist).forEach(movie => {
+        Object.values(watchList).forEach(movie => {
             genreList = genreList.concat(movie.genre_ids);
         });
         return [ ...new Set(genreList)];
     }
 
     const handleGenreSelection = (genreId) => {
-        const newList = Object.values(watchlist).filter(movie => genreId ? movie.genre_ids.includes(genreId) : true);
+        const newList = Object.values(watchList).filter(movie => genreId ? movie.genre_ids.includes(genreId) : true);
         setList(newList);
+    }
+
+    const handleRemoveFromWatchList = (movieId) => {
+        dispatch(removeFromWatchlist(movieId))
     }
 
 
     useEffect(() => {
-        setList(Object.values(watchlist))
+        setList(Object.values(watchList))
 
-    },[watchlist])
+    },[watchList])
 
     return(
         <div>
@@ -98,6 +109,7 @@ export const WatchList = () => {
                                     <td>{movie.title}</td>
                                     <td>{movie.genre_ids.map(genreId => genreids[genreId]).join(', ')}</td>
                                     <td>{movie.popularity}</td>
+                                    <td><button onClick={()=>handleRemoveFromWatchList(movie)}>-</button></td>
                                 </tr>
                             ))
                         }
